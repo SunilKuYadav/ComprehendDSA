@@ -28,8 +28,8 @@ export const bubbleSort = async (
       if (arr[j].number > arr[j + 1].number) {
         // update swap element on UI color
         await wait(timer);
-        // arr[j] = { ...arr[j], color: swapped };
-        // arr[j + 1] = { ...arr[j + 1], color: swapped };
+        arr[j] = { ...arr[j], color: swapped };
+        arr[j + 1] = { ...arr[j + 1], color: swapped };
         await wait(timer);
 
         let temp = arr[j];
