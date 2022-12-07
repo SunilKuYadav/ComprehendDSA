@@ -1,5 +1,5 @@
 import { ArrayBarProps } from "../../_types";
-import { active, done, inactive, selected, swapped, wait } from "../utils";
+import { done, inactive, selected, swapped, wait } from "../utils";
 
 export const bubbleSort = async (
   arr: ArrayBarProps[],
