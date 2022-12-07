@@ -41,7 +41,7 @@ export const bubbleSort = async (
 
         // update swap element on UI
         stepData(arr);
-        await wait(timer);
+        await wait(timer / 2);
       }
 
       // Update after swapped element on UI
