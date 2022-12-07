@@ -8,8 +8,11 @@ interface BarProps {
 
 const Bar = (props: BarProps) => {
   const { number, size, color } = props;
+  const [hover, setHover] = useState(false);
   // size * step = 600
   // 600 / size = step
+
+  const onHover = () => setHover((prev) => !prev);
 
   return (
     <div
@@ -21,8 +24,24 @@ const Bar = (props: BarProps) => {
         color: "white",
         marginTop: 600 - number * 6,
       }}
+      onMouseEnter={onHover}
+      onMouseLeave={onHover}
     >
-      {size < 20 ? number : ""}
+      {size < 20 ? (
+        number
+      ) : hover ? (
+        <span
+          style={{
+            position: "absolute",
+            color: "red",
+            backgroundColor: "aliceblue",
+            padding: 5,
+            borderRadius: "50%",
+          }}
+        >
+          {number}
+        </span>
+      ) : null}
     </div>
   );
 };
