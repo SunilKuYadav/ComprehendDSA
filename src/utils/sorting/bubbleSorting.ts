@@ -1,5 +1,5 @@
 import { ArrayBarProps } from "../../_types";
-import { active, done, inactive, swapped, wait } from "../utils";
+import { active, done, inactive, selected, swapped, wait } from "../utils";
 
 export const bubbleSort = async (
   arr: ArrayBarProps[],
@@ -19,10 +19,10 @@ export const bubbleSort = async (
     // 0 - len - i -1
     for (let j = 0; j < len - i - 1; j++) {
       // update selected element in UI
-      arr[j] = { ...arr[j], color: active };
-      arr[j + 1] = { ...arr[j + 1], color: active };
+      arr[j] = { ...arr[j], color: selected };
+      arr[j + 1] = { ...arr[j + 1], color: selected };
       stepData(arr);
-      await wait(timer);
+      await wait(timer / 2);
 
       // check if j and j+1 element is following the order
       if (arr[j].number > arr[j + 1].number) {
@@ -30,7 +30,7 @@ export const bubbleSort = async (
         await wait(timer);
         arr[j] = { ...arr[j], color: swapped };
         arr[j + 1] = { ...arr[j + 1], color: swapped };
-        await wait(timer);
+        await wait(timer / 2);
 
         let temp = arr[j];
         arr[j] = arr[j + 1];
