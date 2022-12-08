@@ -33,7 +33,9 @@ function App() {
 
   const updateData = () => {
     // update timer
-    if (count >= 100) {
+    if (count >= 200) {
+      timer = 5;
+    } else if (count >= 100) {
       timer = 10;
     } else if (count >= 80) {
       timer = 30;
@@ -96,15 +98,24 @@ function App() {
 
   return (
     <div className="App">
-      <input
-        disabled={btnState}
-        type="range"
-        min={5}
-        max={countMax}
-        step={1}
-        value={count}
-        onChange={handleSizeChange}
-      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p>size & speed</p>
+        <input
+          disabled={btnState}
+          type="range"
+          min={5}
+          max={countMax}
+          step={1}
+          value={count}
+          onChange={handleSizeChange}
+        />
+      </div>
       <div
         style={{
           display: "flex",

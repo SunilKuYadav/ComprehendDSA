@@ -21,15 +21,24 @@ export const selectionSort = async (
       await wait(timer);
 
       if (arr[j].number < arr[minIndex].number) {
+        if (minIndex !== i) {
+          arr[minIndex] = { ...arr[minIndex], color: inactive };
+          stepData(arr);
+          await wait(timer);
+        }
+
         minIndex = j;
+
         arr[minIndex] = { ...arr[minIndex], color: swapped };
         stepData(arr);
         await wait(timer);
       }
 
-      arr[j] = { ...arr[j], color: inactive };
-      stepData(arr);
-      await wait(timer);
+      if (j !== minIndex) {
+        arr[j] = { ...arr[j], color: inactive };
+        stepData(arr);
+        await wait(timer);
+      }
     }
 
     arr[minIndex] = { ...arr[minIndex], color: swapped };
