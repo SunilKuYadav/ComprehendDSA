@@ -4,10 +4,11 @@ interface BarProps {
   size: number;
   color: string;
   number: number;
+  maxHeightCount: number;
 }
 
 const Bar = (props: BarProps) => {
-  const { number, size, color } = props;
+  const { number, size, color, maxHeightCount } = props;
   const [hover, setHover] = useState(false);
   // size * step = 600
   // 600 / size = step
@@ -17,12 +18,11 @@ const Bar = (props: BarProps) => {
   return (
     <div
       style={{
-        width: (100 / size) * 4 < 30 ? (100 / size) * 4 : 30,
-        height: number * 6,
+        width: size < 100 ? ((100 / size) * 4 < 30 ? (100 / size) * 4 : 30) : 3,
+        height: number * (600 / maxHeightCount),
         backgroundColor: color,
         margin: 2,
         color: "white",
-        marginTop: 600 - number * 6,
       }}
       onMouseEnter={onHover}
       onMouseLeave={onHover}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
+
 import "./App.css";
 import Bar from "./components/Bar";
 import { ArrayBarProps } from "./_types";
@@ -14,22 +14,28 @@ import {
   selectionSort,
   swapped,
 } from "./utils";
+import { useWindowSize } from "./hooks";
 
 var timer = 500;
 
 function App() {
   const [count, setCount] = useState(20);
+  const [countMax, setCountMax] = useState(100);
   const [dataSet, setdataSet] = useState<ArrayBarProps[]>([]);
   const [btnState, setBtnState] = useState(false);
 
+  const size = useWindowSize();
+
   const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     console.log(e.target.value);
-    setCount(parseInt(e.target.value));
+    setCount(() => parseInt(e.target.value));
   };
 
   const updateData = () => {
     // update timer
-    if (count >= 80) {
+    if (count >= 100) {
+      timer = 10;
+    } else if (count >= 80) {
       timer = 30;
     } else if (count >= 50) {
       timer = 50;
@@ -40,10 +46,10 @@ function App() {
     }
     // create data set
     const tempDataSet: any[] = [];
-    let data = Math.floor(Math.random() * (100 - 5 + 1)) + 5;
+    let data = Math.floor(Math.random() * (countMax - 5 + 1)) + 5;
     for (let i = 0; i < count; i++) {
       tempDataSet.push({ number: data, color: inactive });
-      data = Math.floor(Math.random() * (100 - 5 + 1)) + 5;
+      data = Math.floor(Math.random() * (countMax - 5 + 1)) + 5;
     }
     setdataSet(() => [...tempDataSet]);
     console.log(tempDataSet.map((item) => item.number));
@@ -77,6 +83,16 @@ function App() {
   };
 
   useEffect(updateData, [count]);
+  useEffect(() => {
+    if (size.width > 800) {
+      const tempCount = Math.floor(size.width / 8);
+      if (300 > tempCount) {
+        setCountMax(() => tempCount);
+      } else {
+        setCountMax(() => 300);
+      }
+    }
+  }, [size.width]);
 
   return (
     <div className="App">
@@ -84,7 +100,7 @@ function App() {
         disabled={btnState}
         type="range"
         min={5}
-        max={100}
+        max={countMax}
         step={1}
         value={count}
         onChange={handleSizeChange}
@@ -92,7 +108,9 @@ function App() {
       <div
         style={{
           display: "flex",
+          justifyContent: "center",
           height: 600,
+          width: "100%",
         }}
       >
         {dataSet.length &&
@@ -102,36 +120,39 @@ function App() {
               number={item.number}
               key={`${index}k`}
               size={count}
+              maxHeightCount={countMax}
             />
           ))}
       </div>
-      <button disabled={btnState} onClick={updateData}>
-        generate
-      </button>
-      <button disabled={btnState} onClick={() => sorting("bubble")}>
-        bubble sort
-      </button>
-      <button disabled={btnState} onClick={() => sorting("merge")}>
-        merge sort
-      </button>
-      <button disabled={btnState} onClick={() => sorting("insertion")}>
-        insertion sort
-      </button>
-      <button disabled={btnState} onClick={() => sorting("selection")}>
-        selection sort
-      </button>
       <div>
-        <input type="color" disabled value={active} />
-        <span>Extra Space</span>
+        <button disabled={btnState} onClick={updateData}>
+          generate
+        </button>
+        <button disabled={btnState} onClick={() => sorting("bubble")}>
+          bubble sort
+        </button>
+        <button disabled={btnState} onClick={() => sorting("merge")}>
+          merge sort
+        </button>
+        <button disabled={btnState} onClick={() => sorting("insertion")}>
+          insertion sort
+        </button>
+        <button disabled={btnState} onClick={() => sorting("selection")}>
+          selection sort
+        </button>
+        <div>
+          <input type="color" disabled value={active} />
+          <span>Extra Space</span>
 
-        <input type="color" disabled value={selected} />
-        <span>Comparing</span>
+          <input type="color" disabled value={selected} />
+          <span>Comparing</span>
 
-        <input type="color" disabled value={swapped} />
-        <span>Swapping</span>
+          <input type="color" disabled value={swapped} />
+          <span>Swapping</span>
 
-        <input type="color" disabled value={done} />
-        <span>Done Sorting</span>
+          <input type="color" disabled value={done} />
+          <span>Done Sorting</span>
+        </div>
       </div>
     </div>
   );
