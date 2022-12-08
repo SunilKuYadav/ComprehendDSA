@@ -11,6 +11,7 @@ import {
   insertionSort,
   mergeSort,
   selected,
+  selectionSort,
   swapped,
 } from "./utils";
 
@@ -66,6 +67,9 @@ function App() {
       case "insertion":
         await insertionSort(dataSet, timer, updateUI);
         break;
+      case "selection":
+        await selectionSort(dataSet, timer, updateUI);
+        break;
       default:
         break;
     }
@@ -112,6 +116,9 @@ function App() {
       </button>
       <button disabled={btnState} onClick={() => sorting("insertion")}>
         insertion sort
+      </button>
+      <button disabled={btnState} onClick={() => sorting("selection")}>
+        selection sort
       </button>
       <div>
         <input type="color" disabled value={active} />
