@@ -8,6 +8,7 @@ import {
   bubbleSort,
   done,
   inactive,
+  insertionSort,
   mergeSort,
   selected,
   swapped,
@@ -62,6 +63,9 @@ function App() {
       case "merge":
         await mergeSort(dataSet, 0, dataSet.length - 1, timer, updateUI);
         break;
+      case "insertion":
+        await insertionSort(dataSet, timer, updateUI);
+        break;
       default:
         break;
     }
@@ -101,12 +105,13 @@ function App() {
         generate
       </button>
       <button disabled={btnState} onClick={() => sorting("bubble")}>
-        {" "}
         bubble sort
       </button>
       <button disabled={btnState} onClick={() => sorting("merge")}>
-        {" "}
         merge sort
+      </button>
+      <button disabled={btnState} onClick={() => sorting("insertion")}>
+        insertion sort
       </button>
       <div>
         <input type="color" disabled value={active} />
