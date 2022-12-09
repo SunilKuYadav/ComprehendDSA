@@ -7,7 +7,7 @@ interface BarProps {
   maxHeightCount: number;
 }
 
-const Bar = (props: BarProps) => {
+const ArrayNode = (props: BarProps) => {
   const { number, size, color, maxHeightCount } = props;
   const [hover, setHover] = useState(false);
   // size * step = 600
@@ -46,4 +46,4 @@ const Bar = (props: BarProps) => {
   );
 };
 
-export default Bar;
+export default ArrayNode;

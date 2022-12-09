@@ -1,35 +1,41 @@
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
-import Bar from "./components/Bar";
 import { ArrayBarProps } from "./_types";
 import {
   active,
+  addElement,
   bubbleSort,
+  deleteElement,
   done,
   heapSort,
   inactive,
   insertionSort,
   mergeSort,
   quickSort,
+  searchElement,
   selected,
   selectionSort,
   swapped,
 } from "./utils";
 import { useWindowSize } from "./hooks";
+import { ArrayNodeBar, ArrayNodeBox } from "./components";
+import ArrayElementModal from "./components/modal/ArrayElementModal";
 
 var timer = 500;
 
 function App() {
-  const [count, setCount] = useState(20);
-  const [countMax, setCountMax] = useState(100);
+  const [count, setCount] = useState<number>(20);
+  const [countMax, setCountMax] = useState<number>(100);
   const [dataSet, setdataSet] = useState<ArrayBarProps[]>([]);
-  const [btnState, setBtnState] = useState(false);
+  const [btnState, setBtnState] = useState<boolean>(false);
+  const [modalStatus, setModalStatus] = useState<boolean>(false);
+  const [bar, setBar] = useState<boolean>(true);
+  const [arrOperation, setArrOperation] = useState<string>("");
 
   const size = useWindowSize();
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target.value);
     setCount(() => parseInt(e.target.value));
   };
 
@@ -56,7 +62,6 @@ function App() {
       data = Math.floor(Math.random() * (countMax - 5 + 1)) + 5;
     }
     setdataSet(() => [...tempDataSet]);
-    console.log(tempDataSet.map((item) => item.number));
   };
 
   const updateUI = (data: ArrayBarProps[]) => {
@@ -87,7 +92,43 @@ function App() {
       default:
         break;
     }
+    const tempData = dataSet.map((item) => ({ ...item, color: done }));
+    setdataSet(() => [...tempData]);
     setBtnState(false);
+  };
+
+  const toggleModal = (operation?: string) => {
+    if (operation) {
+      setArrOperation(() => operation);
+    }
+    setModalStatus((prev) => !prev);
+  };
+
+  const handleDataUpdate = async (
+    element: ArrayBarProps,
+    type: string,
+    position?: number
+  ) => {
+    setBtnState(true);
+    if (type === "add") {
+      await addElement(dataSet, element, timer, updateUI, position);
+    }
+    if (type === "delete") {
+      await deleteElement(dataSet, element, timer, updateUI);
+    }
+    if (type === "search") {
+      await searchElement(dataSet, element, timer, updateUI);
+    }
+    setBtnState(false);
+  };
+
+  const handleGraphChange = (e: any) => {
+    console.log(e.target.value);
+    if (e.target.value === "bar") {
+      setBar(() => true);
+    } else {
+      setBar(() => false);
+    }
   };
 
   useEffect(updateData, [count]);
@@ -104,6 +145,14 @@ function App() {
 
   return (
     <div className="App">
+      <ArrayElementModal
+        isOpen={modalStatus}
+        closeModal={toggleModal}
+        data={dataSet}
+        maxNumber={countMax}
+        dataReturn={handleDataUpdate}
+        operation={arrOperation}
+      />
       <div
         style={{
           display: "flex",
@@ -121,29 +170,58 @@ function App() {
           value={count}
           onChange={handleSizeChange}
         />
+        <select onChange={handleGraphChange}>
+          <option value="bar">Bar</option>
+          <option value="box">Box</option>
+        </select>
       </div>
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          // justifyContent: "center",
           height: 600,
-          width: "100%",
+          // width: "100%",
+          flexWrap: "wrap",
+          position: "relative",
+          margin: "0 10px",
         }}
       >
-        {dataSet.length &&
-          dataSet.map((item, index) => (
-            <Bar
-              color={item.color}
-              number={item.number}
-              key={`${index}k`}
-              size={count}
-              maxHeightCount={countMax}
-            />
-          ))}
+        {bar
+          ? dataSet.length &&
+            dataSet.map((item, index) => (
+              <ArrayNodeBar
+                color={item.color}
+                number={item.number}
+                key={`${index}k`}
+                size={count}
+                maxHeightCount={countMax}
+              />
+            ))
+          : dataSet.length &&
+            dataSet.map((item, index) => (
+              <ArrayNodeBox
+                color={item.color}
+                number={item.number}
+                key={`${index}k`}
+                size={count}
+                maxHeightCount={countMax}
+              />
+            ))}
       </div>
-      <button disabled={btnState} onClick={updateData}>
-        generate new array
-      </button>
+      <div>
+        <button disabled={btnState} onClick={updateData}>
+          generate new array
+        </button>
+        <button disabled={btnState} onClick={() => toggleModal("add")}>
+          add new element
+        </button>
+        <button disabled={btnState} onClick={() => toggleModal("delete")}>
+          delete element
+        </button>
+        <button disabled={btnState} onClick={() => toggleModal("search")}>
+          search element
+        </button>
+      </div>
       <div
         style={{
           display: "flex",
