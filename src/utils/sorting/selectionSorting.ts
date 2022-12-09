@@ -1,5 +1,5 @@
 import { ArrayBarProps } from "../../_types";
-import { done, inactive, selected, swapped, wait } from "../utils";
+import { active, done, selected, swapped, wait } from "../utils";
 
 export const selectionSort = async (
   arr: ArrayBarProps[],
@@ -14,6 +14,12 @@ export const selectionSort = async (
     stepData(arr);
     await wait(timer);
 
+    for (let k = i + 1; k < len; k++) {
+      arr[k] = { ...arr[k], color: active };
+    }
+    stepData(arr);
+    await wait(timer);
+
     minIndex = i;
     for (j = i + 1; j < len; j++) {
       arr[j] = { ...arr[j], color: selected };
@@ -22,7 +28,7 @@ export const selectionSort = async (
 
       if (arr[j].number < arr[minIndex].number) {
         if (minIndex !== i) {
-          arr[minIndex] = { ...arr[minIndex], color: inactive };
+          arr[minIndex] = { ...arr[minIndex], color: active };
           stepData(arr);
           await wait(timer);
         }
@@ -35,7 +41,7 @@ export const selectionSort = async (
       }
 
       if (j !== minIndex) {
-        arr[j] = { ...arr[j], color: inactive };
+        arr[j] = { ...arr[j], color: active };
         stepData(arr);
         await wait(timer);
       }
@@ -49,7 +55,7 @@ export const selectionSort = async (
     arr[i] = arr[minIndex];
     arr[minIndex] = temp;
 
-    arr[minIndex] = { ...arr[minIndex], color: inactive };
+    arr[minIndex] = { ...arr[minIndex], color: active };
     arr[i] = { ...arr[i], color: done };
     stepData(arr);
     await wait(timer);

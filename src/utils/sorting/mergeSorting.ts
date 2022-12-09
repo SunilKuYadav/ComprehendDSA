@@ -2,7 +2,7 @@
 // Time O(n)
 
 import { ArrayBarProps } from "../../_types";
-import { active, inactive, selected, swapped, wait } from "../utils";
+import { active, done, inactive, selected, swapped, wait } from "../utils";
 
 // Space O(n)
 const merge = async (
@@ -54,7 +54,7 @@ const merge = async (
 
       arr[k] = leftArray[i];
 
-      arr[left + i] = { ...arr[left + i], color: inactive };
+      arr[left + i] = { ...arr[left + i], color: done };
       stepData(arr);
       await wait(timer / 2);
       i++;
@@ -65,12 +65,12 @@ const merge = async (
 
       arr[k] = rightArray[j];
 
-      arr[middle + 1 + j] = { ...arr[middle + 1 + j], color: inactive };
+      arr[middle + 1 + j] = { ...arr[middle + 1 + j], color: done };
       stepData(arr);
       await wait(timer / 2);
       j++;
     }
-    arr[k] = { ...arr[k], color: inactive };
+    arr[k] = { ...arr[k], color: done };
     stepData(arr);
     await wait(timer / 2);
     k++;
@@ -85,8 +85,8 @@ const merge = async (
 
     arr[k] = leftArray[i];
 
-    arr[left + i] = { ...arr[left + i], color: inactive };
-    arr[k] = { ...arr[k], color: inactive };
+    arr[left + i] = { ...arr[left + i], color: done };
+    arr[k] = { ...arr[k], color: done };
     stepData(arr);
     await wait(timer);
 
@@ -102,8 +102,8 @@ const merge = async (
 
     arr[k] = rightArray[j];
 
-    arr[middle + 1 + j] = { ...arr[middle + 1 + j], color: inactive };
-    arr[k] = { ...arr[k], color: inactive };
+    arr[middle + 1 + j] = { ...arr[middle + 1 + j], color: done };
+    arr[k] = { ...arr[k], color: done };
     stepData(arr);
     await wait(timer);
 
@@ -121,11 +121,48 @@ export const mergeSort = async (
   timer: number,
   stepData: (data: ArrayBarProps[]) => void
 ) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (i >= left && i <= right) {
+      continue;
+    }
+    arr[i] = { ...arr[i], color: inactive };
+  }
+  stepData(arr);
+  if (arr.length > 100) {
+    await wait(100);
+  }
+  await wait(timer);
+
   if (left >= right) {
     return;
   }
   const middle = left + parseInt(`${(right - left) / 2}`);
+
+  for (let i = left; i < middle; i++) {
+    arr[i] = { ...arr[i], color: active };
+  }
+  stepData(arr);
+  await wait(timer);
+
   await mergeSort(arr, left, middle, timer, stepData);
+
+  for (let i = left; i < middle; i++) {
+    arr[i] = { ...arr[i], color: inactive };
+  }
+  stepData(arr);
+  await wait(timer);
+
+  for (let i = middle + 1; i < right; i++) {
+    arr[i] = { ...arr[i], color: active };
+  }
+  stepData(arr);
+  await wait(timer);
   await mergeSort(arr, middle + 1, right, timer, stepData);
+
+  for (let i = middle + 1; i < right; i++) {
+    arr[i] = { ...arr[i], color: inactive };
+  }
+  stepData(arr);
+  await wait(timer);
   await merge(arr, left, middle, right, timer, stepData);
 };

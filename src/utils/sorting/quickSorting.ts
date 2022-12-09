@@ -1,5 +1,5 @@
 import { ArrayBarProps } from "../../_types";
-import { inactive, swapped, wait, selected, done } from "../utils";
+import { inactive, swapped, wait, selected, done, active } from "../utils";
 
 const swap = async (
   arr: ArrayBarProps[],
@@ -30,6 +30,20 @@ const partition = async (
   timer: number,
   stepData: (data: ArrayBarProps[]) => void
 ) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (i >= start && i <= end) {
+      arr[i] = { ...arr[i], color: active };
+    }
+    if (i > end) {
+      arr[i] = { ...arr[i], color: inactive };
+    }
+    if (i < start) {
+      arr[i] = { ...arr[i], color: done };
+    }
+  }
+  stepData(arr);
+  await wait(timer);
+
   // pivot
   const pivot = arr[end];
 
@@ -50,8 +64,8 @@ const partition = async (
       await swap(arr, i, j, timer, stepData);
     }
 
-    arr[j] = { ...arr[j], color: inactive };
-    arr[end] = { ...arr[end], color: inactive };
+    arr[j] = { ...arr[j], color: swapped };
+    arr[end] = { ...arr[end], color: swapped };
     stepData(arr);
     await wait(timer);
   }
@@ -69,6 +83,11 @@ export const quickSort = async (
   if (start < end) {
     const pi = await partition(arr, start, end, timer, stepData);
 
+    // for (let i = 0; i < arr.length; i++) {
+    //   arr[i] = { ...arr[i], color: active };
+    // }
+    // stepData(arr);
+    // await wait(timer);
     await quickSort(arr, start, pi - 1, timer, stepData);
     await quickSort(arr, pi + 1, end, timer, stepData);
     stepData(arr);

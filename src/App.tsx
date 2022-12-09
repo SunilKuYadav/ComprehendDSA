@@ -7,6 +7,7 @@ import {
   active,
   bubbleSort,
   done,
+  heapSort,
   inactive,
   insertionSort,
   mergeSort,
@@ -60,8 +61,6 @@ function App() {
 
   const updateUI = (data: ArrayBarProps[]) => {
     setdataSet(() => [...data]);
-    // console.log(data.map((item) => item.number));
-    console.log(data);
   };
 
   const sorting = async (type: string) => {
@@ -81,6 +80,9 @@ function App() {
         break;
       case "quick":
         await quickSort(dataSet, 0, dataSet.length - 1, timer, updateUI);
+        break;
+      case "heap":
+        await heapSort(dataSet, timer, updateUI);
         break;
       default:
         break;
@@ -166,10 +168,13 @@ function App() {
           <button disabled={btnState} onClick={() => sorting("quick")}>
             quick sort
           </button>
+          <button disabled={btnState} onClick={() => sorting("heap")}>
+            heap sort
+          </button>
         </div>
         <div>
           <input type="color" disabled value={active} />
-          <span>Extra Space</span>
+          <span>Extra Space or Active sub-array</span>
 
           <input type="color" disabled value={selected} />
           <span>Comparing</span>

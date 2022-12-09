@@ -1,5 +1,5 @@
 import { ArrayBarProps } from "../../_types";
-import { done, swapped, wait } from "../utils";
+import { active, done, swapped, wait } from "../utils";
 
 export const insertionSort = async (
   arr: ArrayBarProps[],
@@ -11,6 +11,14 @@ export const insertionSort = async (
   for (i = 0; i < len; i++) {
     key = arr[i];
     j = i - 1;
+
+    for (let k = 0; k <= j; k++) {
+      if (arr[k].color !== done) {
+        arr[k] = { ...arr[k], color: active };
+      }
+    }
+    stepData(arr);
+    await wait(timer);
 
     while (j >= 0 && arr[j].number > key.number) {
       let a = arr[j + 1].color;
