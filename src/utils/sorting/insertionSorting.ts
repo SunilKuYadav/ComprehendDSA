@@ -14,7 +14,7 @@ export const insertionSort = async (
 
     for (let k = 0; k <= j; k++) {
       if (arr[k].color !== done) {
-        arr[k] = { ...arr[k], color: active };
+        arr[k] = { ...arr[k], color: done };
       }
     }
     stepData(arr);
