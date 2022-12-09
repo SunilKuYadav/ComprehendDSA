@@ -10,6 +10,7 @@ import {
   inactive,
   insertionSort,
   mergeSort,
+  quickSort,
   selected,
   selectionSort,
   swapped,
@@ -78,6 +79,9 @@ function App() {
       case "selection":
         await selectionSort(dataSet, timer, updateUI);
         break;
+      case "quick":
+        await quickSort(dataSet, 0, dataSet.length - 1, timer, updateUI);
+        break;
       default:
         break;
     }
@@ -135,22 +139,34 @@ function App() {
             />
           ))}
       </div>
-      <div>
-        <button disabled={btnState} onClick={updateData}>
-          generate
-        </button>
-        <button disabled={btnState} onClick={() => sorting("bubble")}>
-          bubble sort
-        </button>
-        <button disabled={btnState} onClick={() => sorting("merge")}>
-          merge sort
-        </button>
-        <button disabled={btnState} onClick={() => sorting("insertion")}>
-          insertion sort
-        </button>
-        <button disabled={btnState} onClick={() => sorting("selection")}>
-          selection sort
-        </button>
+      <button disabled={btnState} onClick={updateData}>
+        generate new array
+      </button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <button disabled={btnState} onClick={() => sorting("bubble")}>
+            bubble sort
+          </button>
+          <button disabled={btnState} onClick={() => sorting("merge")}>
+            merge sort
+          </button>
+          <button disabled={btnState} onClick={() => sorting("insertion")}>
+            insertion sort
+          </button>
+          <button disabled={btnState} onClick={() => sorting("selection")}>
+            selection sort
+          </button>
+          <button disabled={btnState} onClick={() => sorting("quick")}>
+            quick sort
+          </button>
+        </div>
         <div>
           <input type="color" disabled value={active} />
           <span>Extra Space</span>
