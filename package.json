@@ -3,7 +3,7 @@
   "description": "This is web page for visualing the DSA algorithms and concepts.",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://SunilKuYadav.github.io/ComprehendDSA",
+  "homepage": "https://sunilkuyadav.github.io/ComprehendDSA",
   "repository": {
     "type": "git",
     "url": "https://github.com/SunilKuYadav/ComprehendDSA"
