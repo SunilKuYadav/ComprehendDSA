@@ -34,7 +34,7 @@
     transition: color 0.3s, background-color 0.3s, border-radius 0.3s;
 }
 
-.btn:hover {
+.btn:hover:not([disabled]) {
     color: red;
     background-color: aqua;
     border-radius: 0;

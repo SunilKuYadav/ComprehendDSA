@@ -1,8 +1,8 @@
 const wait = (timer: number) => new Promise((res) => setTimeout(res, timer));
-const active = "#e5d0e5",
+const active = "#808080",
   done = "#00ff00",
   selected = "#0000ff",
-  inactive = "#808080",
+  inactive = "#00E7FF",
   swapped = "#ff0000";
 
 export { wait, active, done, inactive, selected, swapped };
