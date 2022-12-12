@@ -25,6 +25,7 @@ import ArrayElementModal from "./components/modal/ArrayElementModal";
 var timer = 500;
 
 function App() {
+  const [unique, setUnique] = useState<boolean>(false);
   const [count, setCount] = useState<number>(20);
   const [countMax, setCountMax] = useState<number>(100);
   const [dataSet, setdataSet] = useState<ArrayBarProps[]>([]);
@@ -55,13 +56,27 @@ function App() {
       timer = 300;
     }
     // create data set
-    const tempDataSet: any[] = [];
-    let data = Math.floor(Math.random() * (countMax - 5 + 1)) + 5;
-    for (let i = 0; i < count; i++) {
-      tempDataSet.push({ number: data, color: inactive });
-      data = Math.floor(Math.random() * (countMax - 5 + 1)) + 5;
+    let tempDataSet: any[] = [];
+    let data = Math.floor(Math.random() * countMax) + 1;
+    if (unique) {
+      while (tempDataSet.length < count) {
+        if (tempDataSet.indexOf(data) === -1) {
+          tempDataSet.push(data);
+        }
+        data = Math.floor(Math.random() * countMax) + 1;
+      }
+    } else {
+      for (let i = 0; i < count; i++) {
+        tempDataSet.push(data);
+        data = Math.floor(Math.random() * countMax) + 1;
+      }
     }
-    setdataSet(() => [...tempDataSet]);
+    setdataSet(() =>
+      tempDataSet.map((data) => ({
+        number: data,
+        color: inactive,
+      }))
+    );
   };
 
   const updateUI = (data: ArrayBarProps[]) => {
@@ -92,8 +107,7 @@ function App() {
       default:
         break;
     }
-    const tempData = dataSet.map((item) => ({ ...item, color: done }));
-    setdataSet(() => [...tempData]);
+
     setBtnState(false);
   };
 
@@ -130,8 +144,21 @@ function App() {
       setBar(() => false);
     }
   };
+  const handleNumberChange = (e: any) => {
+    if (e.target.value === "uni") {
+      setUnique(() => true);
+    } else {
+      setUnique(() => false);
+    }
+  };
 
-  useEffect(updateData, [count]);
+  useEffect(() => {
+    if (count > countMax) {
+      setCountMax(() => 300);
+      console.log("update.....");
+    }
+    updateData();
+  }, [count]);
   useEffect(() => {
     if (size.width > 800) {
       const tempCount = Math.floor(size.width / 8);
@@ -158,6 +185,7 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          width: "100%",
         }}
       >
         <p>size & speed</p>
@@ -178,9 +206,7 @@ function App() {
       <div
         style={{
           display: "flex",
-          // justifyContent: "center",
           height: 600,
-          // width: "100%",
           flexWrap: "wrap",
           position: "relative",
           margin: "0 10px",
@@ -209,15 +235,19 @@ function App() {
             ))}
       </div>
       <div>
+        <select disabled={btnState} onChange={handleNumberChange}>
+          <option value="dup">Duplicate</option>
+          <option value="uni">Unique</option>
+        </select>
         <button disabled={btnState} onClick={updateData}>
           generate new array
         </button>
-        <button disabled={btnState} onClick={() => toggleModal("add")}>
+        {/* <button disabled={btnState} onClick={() => toggleModal("add")}>
           add new element
         </button>
         <button disabled={btnState} onClick={() => toggleModal("delete")}>
           delete element
-        </button>
+        </button> */}
         <button disabled={btnState} onClick={() => toggleModal("search")}>
           search element
         </button>
