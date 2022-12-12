@@ -1,15 +1,30 @@
 {
   "name": "comprehenddsa",
+  "description": "This is web page for visualing the DSA algorithms and concepts.",
   "private": true,
   "version": "0.0.0",
   "homepage": "https://SunilKuYadav.github.io/ComprehendDSA",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SunilKuYadav/ComprehendDSA"
+  },
+  "keywords": [
+    "DSA",
+    "Visualization",
+    "Sorting",
+    "Comprehend",
+    "by",
+    "Sunil Kumar Yadav"
+  ],
+  "author": "Sunil Kumar Yadav",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.2.0",
