@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
+import "./Sorting.css";
 import { ArrayBarProps } from "./_types";
 import {
   active,
@@ -180,14 +181,7 @@ function App() {
         dataReturn={handleDataUpdate}
         operation={arrOperation}
       />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
+      <div className="header-wrapper">
         <p>size & speed</p>
         <input
           disabled={btnState}
@@ -198,20 +192,12 @@ function App() {
           value={count}
           onChange={handleSizeChange}
         />
-        <select onChange={handleGraphChange}>
+        <select className="select" onChange={handleGraphChange}>
           <option value="bar">Bar</option>
           <option value="box">Box</option>
         </select>
       </div>
-      <div
-        style={{
-          display: "flex",
-          height: 600,
-          flexWrap: "wrap",
-          position: "relative",
-          margin: "0 10px",
-        }}
-      >
+      <div className="bar-line-wrapper">
         {bar
           ? dataSet.length &&
             dataSet.map((item, index) => (
@@ -234,21 +220,29 @@ function App() {
               />
             ))}
       </div>
-      <div>
-        <select disabled={btnState} onChange={handleNumberChange}>
+      <div className="btn-wrapper">
+        <select
+          className="select"
+          disabled={btnState}
+          onChange={handleNumberChange}
+        >
           <option value="dup">Duplicate</option>
           <option value="uni">Unique</option>
         </select>
-        <button disabled={btnState} onClick={updateData}>
+        <button className="btn" disabled={btnState} onClick={updateData}>
           generate new array
         </button>
-        {/* <button disabled={btnState} onClick={() => toggleModal("add")}>
+        {/* <button className="btn" disabled={btnState} onClick={() => toggleModal("add")}>
           add new element
         </button>
-        <button disabled={btnState} onClick={() => toggleModal("delete")}>
+        <button className="btn" disabled={btnState} onClick={() => toggleModal("delete")}>
           delete element
         </button> */}
-        <button disabled={btnState} onClick={() => toggleModal("search")}>
+        <button
+          className="btn"
+          disabled={btnState}
+          onClick={() => toggleModal("search")}
+        >
           search element
         </button>
       </div>
@@ -261,22 +255,46 @@ function App() {
         }}
       >
         <div>
-          <button disabled={btnState} onClick={() => sorting("bubble")}>
+          <button
+            className="btn"
+            disabled={btnState}
+            onClick={() => sorting("bubble")}
+          >
             bubble sort
           </button>
-          <button disabled={btnState} onClick={() => sorting("merge")}>
+          <button
+            className="btn"
+            disabled={btnState}
+            onClick={() => sorting("merge")}
+          >
             merge sort
           </button>
-          <button disabled={btnState} onClick={() => sorting("insertion")}>
+          <button
+            className="btn"
+            disabled={btnState}
+            onClick={() => sorting("insertion")}
+          >
             insertion sort
           </button>
-          <button disabled={btnState} onClick={() => sorting("selection")}>
+          <button
+            className="btn"
+            disabled={btnState}
+            onClick={() => sorting("selection")}
+          >
             selection sort
           </button>
-          <button disabled={btnState} onClick={() => sorting("quick")}>
+          <button
+            className="btn"
+            disabled={btnState}
+            onClick={() => sorting("quick")}
+          >
             quick sort
           </button>
-          <button disabled={btnState} onClick={() => sorting("heap")}>
+          <button
+            className="btn"
+            disabled={btnState}
+            onClick={() => sorting("heap")}
+          >
             heap sort
           </button>
         </div>
@@ -294,6 +312,35 @@ function App() {
           <span>Done Sorting</span>
         </div>
       </div>
+      <footer>
+        <div className="icon-wrap flex row">
+          <a href="https://github.com/SunilKuYadav" target="_blank">
+            <div className="flex icon" id="icon-5">
+              <i className="mdi mdi-github"></i>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/123sunil/" target="_blank">
+            <div className="flex icon" id="icon-2">
+              <i className="mdi mdi-linkedin"></i>
+            </div>
+          </a>
+          <a href="https://twitter.com/123sunilkr" target="_blank">
+            <div className="flex icon" id="icon-2">
+              <i className="mdi mdi-twitter"></i>
+            </div>
+          </a>
+          <a href="https://www.instagram.com/_om_rudra_/" target="_blank">
+            <div className="flex icon" id="icon-4">
+              <i className="mdi mdi-instagram"></i>
+            </div>
+          </a>
+        </div>
+        <div className="info-box">
+          <div className="footnote">
+            SUNIL KUMAR YADAV <span className="highlight">&copy;2022-23</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
