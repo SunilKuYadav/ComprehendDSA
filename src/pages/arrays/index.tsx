@@ -246,6 +246,15 @@ const Arrays = () => {
         >
           search element
         </button>
+        <button
+          className="btn"
+          disabled={!btnState}
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Stop & Reload
+        </button>
       </div>
       <div className="center col">
         <div className="center">
