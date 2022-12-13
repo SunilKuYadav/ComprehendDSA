@@ -1,4 +1,6 @@
 import "./App.css";
+import "./Motion.css";
+import "./Shape.css";
 import { Footer } from "./components";
 import Navigation from "./navigation";
 
