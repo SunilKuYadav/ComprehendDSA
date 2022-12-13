@@ -17,7 +17,7 @@ const ArrayNode = (props: BarProps) => {
   const screenSize = useWindowSize();
 
   useEffect(() => {
-    if (screenSize.width < 800) {
+    if (screenSize.width < 600) {
       setIsMobile(() => true);
     } else {
       setIsMobile(() => false);
@@ -33,7 +33,7 @@ const ArrayNode = (props: BarProps) => {
     <div
       style={{
         width: isMobile
-          ? 3
+          ? 2
           : size < 100
           ? (100 / size) * 4 < 30
             ? (100 / size) * 4
@@ -49,7 +49,7 @@ const ArrayNode = (props: BarProps) => {
       onMouseEnter={onHover}
       onMouseLeave={onHover}
     >
-      {size < 20 ? (
+      {size < 20 && !isMobile ? (
         number
       ) : hover ? (
         <span

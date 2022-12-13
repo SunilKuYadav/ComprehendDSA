@@ -28,7 +28,7 @@ var timer = 500;
 function App() {
   const [unique, setUnique] = useState<boolean>(false);
   const [count, setCount] = useState<number>(20);
-  const [countMax, setCountMax] = useState<number>(100);
+  const [countMax, setCountMax] = useState<number>(50);
   const [dataSet, setdataSet] = useState<ArrayBarProps[]>([]);
   const [btnState, setBtnState] = useState<boolean>(false);
   const [modalStatus, setModalStatus] = useState<boolean>(false);
@@ -161,7 +161,7 @@ function App() {
     updateData();
   }, [count]);
   useEffect(() => {
-    if (size.width > 800) {
+    if (size.width > 600) {
       const tempCount = Math.floor(size.width / 8);
       if (300 > tempCount) {
         setCountMax(() => tempCount);
@@ -248,15 +248,8 @@ function App() {
           search element
         </button>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div>
+      <div className="center col">
+        <div className="center">
           <button
             className="btn"
             disabled={btnState}
@@ -300,7 +293,7 @@ function App() {
             heap sort
           </button>
         </div>
-        <div className="color-wrapper">
+        <div className="color-wrapper center">
           <input type="color" disabled value={active} />
           <span>Extra Space or Active sub-array</span>
 

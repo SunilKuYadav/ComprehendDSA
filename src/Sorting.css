@@ -48,7 +48,17 @@
     color: green;
 }
 
-@media screen and (max-width: 800px) {
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col {
+    flex-direction: column;
+}
+
+@media screen and (max-width: 600px) {
     .bar-line-wrapper {
         min-height: 400px;
         height: 400px;
