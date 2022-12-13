@@ -168,6 +168,8 @@ function App() {
       } else {
         setCountMax(() => 300);
       }
+    } else {
+      setCountMax(() => 50);
     }
   }, [size.width]);
 
@@ -298,7 +300,7 @@ function App() {
             heap sort
           </button>
         </div>
-        <div>
+        <div className="color-wrapper">
           <input type="color" disabled value={active} />
           <span>Extra Space or Active sub-array</span>
 
