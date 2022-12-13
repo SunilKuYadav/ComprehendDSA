@@ -1,3 +1,3 @@
 # ComprehendDSA
 
-This is repository for visualing the algorithms and problem solving
+This is repository for visualising the algorithms and problem solving
