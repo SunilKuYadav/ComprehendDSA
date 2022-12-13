@@ -1,5 +1,5 @@
 import React from "react";
-import { swapped, selected } from "../utils";
+import { swapped, selected } from "../../utils";
 
 interface BoxProps {
   size: number;

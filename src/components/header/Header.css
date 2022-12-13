@@ -1,0 +1,28 @@
+.header-wrappers {
+    height: 50px;
+    background-color: black;
+    color: white;
+}
+
+.header-link {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 20px;
+    transition: color.3s,
+        font-size .3s;
+}
+
+.header-link:hover {
+    color: blue;
+    font-size: 25px;
+    transition: color.3s,
+        font-size .3s;
+}
+
+.logo {
+    display: flex;
+    font-weight: bolder;
+    justify-content: center;
+    align-items: center;
+}

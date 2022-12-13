@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useWindowSize } from "../hooks";
+import { useWindowSize } from "../../hooks";
 
 interface BarProps {
   size: number;
