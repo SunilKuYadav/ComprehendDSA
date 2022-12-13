@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useWindowSize } from "../hooks";
 
 interface BarProps {
   size: number;
@@ -9,7 +10,20 @@ interface BarProps {
 
 const ArrayNode = (props: BarProps) => {
   const { number, size, color, maxHeightCount } = props;
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState<boolean>(false);
+
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  const screenSize = useWindowSize();
+
+  useEffect(() => {
+    if (screenSize.width < 800) {
+      setIsMobile(() => true);
+    } else {
+      setIsMobile(() => false);
+    }
+  }, [screenSize.width]);
+
   // size * step = 600
   // 600 / size = step
 
@@ -18,8 +32,16 @@ const ArrayNode = (props: BarProps) => {
   return (
     <div
       style={{
-        width: size < 100 ? ((100 / size) * 4 < 30 ? (100 / size) * 4 : 30) : 3,
-        height: number * (600 / maxHeightCount),
+        width: isMobile
+          ? 3
+          : size < 100
+          ? (100 / size) * 4 < 30
+            ? (100 / size) * 4
+            : 30
+          : 3,
+        height: isMobile
+          ? number * (400 / maxHeightCount)
+          : number * (600 / maxHeightCount),
         backgroundColor: color,
         margin: 2,
         color: "white",
