@@ -37,6 +37,11 @@
   flex-wrap: wrap;
 }
 
+.bold {
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
 .btn {
   padding: 5px;
   margin: 2px;

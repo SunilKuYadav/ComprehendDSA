@@ -1,17 +1,10 @@
 import { useState } from "react";
 import Modal from "react-modal";
+
 import { inactive } from "../../utils";
+import { ArrayBarProps, ArrayElementModalProps } from "../../_types";
 
-import { ArrayBarProps } from "../../_types";
-
-interface ArrayElementModalProps {
-  isOpen: boolean;
-  closeModal: () => void;
-  data: ArrayBarProps[];
-  maxNumber: number;
-  operation: string;
-  dataReturn: (element: ArrayBarProps, type: string, position?: number) => void;
-}
+// custom style for modal
 const customStyles = {
   content: {
     top: "50%",

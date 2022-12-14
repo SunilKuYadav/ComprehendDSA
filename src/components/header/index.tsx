@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import LOGO from "../../assets/logo.png";
 
+// Pages routes
 const LINKS = [
   {
     name: "Arrays",

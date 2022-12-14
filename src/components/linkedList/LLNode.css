@@ -1,0 +1,35 @@
+.ll-node-wrapper {
+    display: flex;
+    height: 40px;
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.ll-node-value {
+    min-width: 50px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.ll-pointer-left-wrapper {
+    height: 40px;
+    width: 80px;
+}
+
+.ll-pointer-left {
+    height: 10px;
+    width: 80px;
+    background-color: rgb(185, 172, 172);
+    clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+}
+
+.ll-pointer-right {
+    height: 10px;
+    width: 80px;
+    background-color: rgb(185, 172, 172);
+    clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50%);
+}
+
+.ll-node-value.bold {
+    border: 3px solid black;
+}

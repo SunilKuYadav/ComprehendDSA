@@ -1,24 +1,16 @@
-import React from "react";
 import { swapped, selected } from "../../utils";
+import { BarProps } from "../../_types";
 
-interface BoxProps {
-  size: number;
-  color: string;
-  number: number;
-  maxHeightCount: number;
-}
+const ArrayNodeBox = (props: BarProps) => {
+  const { color, number } = props;
 
-const ArrayNodeBox = (props: BoxProps) => {
-  const { color, maxHeightCount, number, size } = props;
   return (
     <div
+      className="center"
       style={{
-        display: "flex",
         position: `${
           color === swapped || color === selected ? "relative" : "relative"
         }`,
-        justifyContent: "center",
-        alignItems: "center",
         color: `${color === swapped || color === selected ? "black" : "red"}`,
         fontWeight: `${
           color === swapped || color === selected ? "bolder" : "normal"

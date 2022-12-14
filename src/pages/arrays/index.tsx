@@ -19,9 +19,15 @@ import {
   swapped,
 } from "./../../utils";
 import { useWindowSize } from "./../../hooks";
-import { ArrayNodeBar, ArrayNodeBox } from "./../../components";
+import {
+  ArrayNodeBar,
+  ArrayNodeBox,
+  Button,
+  OptionSelect,
+} from "./../../components";
 import ArrayElementModal from "./../../components/modal/ArrayElementModal";
 
+// base time for change animation in mm
 var timer = 500;
 
 const Arrays = () => {
@@ -36,25 +42,23 @@ const Arrays = () => {
 
   const size = useWindowSize();
 
-  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setCount(() => parseInt(e.target.value));
-  };
 
   const updateData = () => {
     // update timer
-    if (count >= 200) {
-      timer = 5;
-    } else if (count >= 100) {
-      timer = 10;
-    } else if (count >= 80) {
-      timer = 30;
-    } else if (count >= 50) {
-      timer = 50;
-    } else if (count >= 20) {
-      timer = 100;
-    } else {
-      timer = 300;
-    }
+    count >= 200
+      ? (timer = 5)
+      : count >= 100
+      ? (timer = 10)
+      : count >= 80
+      ? (timer = 30)
+      : count >= 50
+      ? (timer = 50)
+      : count >= 20
+      ? (timer = 100)
+      : (timer = 300);
+
     // create data set
     let tempDataSet: any[] = [];
     let data = Math.floor(Math.random() * countMax) + 1;
@@ -71,6 +75,8 @@ const Arrays = () => {
         data = Math.floor(Math.random() * countMax) + 1;
       }
     }
+
+    // add color field and update data
     setdataSet(() =>
       tempDataSet.map((data) => ({
         number: data,
@@ -79,11 +85,10 @@ const Arrays = () => {
     );
   };
 
-  const updateUI = (data: ArrayBarProps[]) => {
-    setdataSet(() => [...data]);
-  };
+  const updateUI = (data: ArrayBarProps[]) => setdataSet(() => [...data]);
 
   const sorting = async (type: string) => {
+    // disable buttons
     setBtnState(true);
     switch (type) {
       case "bubble":
@@ -107,22 +112,21 @@ const Arrays = () => {
       default:
         break;
     }
-
+    // enable buttons
     setBtnState(false);
   };
 
-  const toggleModal = (operation?: string) => {
-    if (operation) {
-      setArrOperation(() => operation);
-    }
-    setModalStatus((prev) => !prev);
-  };
+  const toggleModal = (operation?: string) =>
+    operation
+      ? setArrOperation(() => operation)
+      : setModalStatus((prev) => !prev);
 
   const handleDataUpdate = async (
     element: ArrayBarProps,
     type: string,
     position?: number
   ) => {
+    // disable buttons
     setBtnState(true);
     if (type === "add") {
       await addElement(dataSet, element, timer, updateUI, position);
@@ -133,32 +137,26 @@ const Arrays = () => {
     if (type === "search") {
       await searchElement(dataSet, element, timer, updateUI);
     }
+
+    // enable buttons
     setBtnState(false);
   };
 
-  const handleGraphChange = (e: any) => {
-    console.log(e.target.value);
-    if (e.target.value === "bar") {
-      setBar(() => true);
-    } else {
-      setBar(() => false);
-    }
-  };
-  const handleNumberChange = (e: any) => {
-    if (e.target.value === "uni") {
-      setUnique(() => true);
-    } else {
-      setUnique(() => false);
-    }
-  };
+  const handleGraphChange = (e: any) =>
+    e.target.value === "bar" ? setBar(() => true) : setBar(() => false);
+
+  const handleNumberChange = (e: any) =>
+    e.target.value === "unique"
+      ? setUnique(() => true)
+      : setUnique(() => false);
 
   useEffect(() => {
     if (count > countMax) {
       setCountMax(() => 300);
-      console.log("update.....");
     }
     updateData();
   }, [count]);
+
   useEffect(() => {
     if (size.width > 600) {
       const tempCount = Math.floor(size.width / 8);
@@ -193,10 +191,7 @@ const Arrays = () => {
           value={count}
           onChange={handleSizeChange}
         />
-        <select className="select" onChange={handleGraphChange}>
-          <option value="bar">Bar</option>
-          <option value="box">Box</option>
-        </select>
+        <OptionSelect options={["bar", "box"]} change={handleGraphChange} />
       </div>
       <div className="bar-line-wrapper">
         {bar
@@ -222,84 +217,67 @@ const Arrays = () => {
             ))}
       </div>
       <div className="btn-wrapper">
-        <select
-          className="select"
+        <OptionSelect
+          options={["duplicate", "unique"]}
+          change={handleNumberChange}
           disabled={btnState}
-          onChange={handleNumberChange}
-        >
-          <option value="dup">Duplicate</option>
-          <option value="uni">Unique</option>
-        </select>
-        <button className="btn" disabled={btnState} onClick={updateData}>
-          generate new array
-        </button>
+        />
+        <Button
+          title="generate new array"
+          click={updateData}
+          disabled={btnState}
+        />
         {/* <button className="btn" disabled={btnState} onClick={() => toggleModal("add")}>
           add new element
         </button>
         <button className="btn" disabled={btnState} onClick={() => toggleModal("delete")}>
           delete element
         </button> */}
-        <button
-          className="btn"
+        <Button
+          title="search element"
+          click={() => toggleModal("search")}
           disabled={btnState}
-          onClick={() => toggleModal("search")}
-        >
-          search element
-        </button>
-        <button
-          className="btn"
-          disabled={!btnState}
-          onClick={() => {
+        />
+        <Button
+          title="Stop & Reload"
+          click={() => {
             window.location.reload();
           }}
-        >
-          Stop & Reload
-        </button>
+          disabled={!btnState}
+        />
       </div>
       <div className="center col">
         <div className="center">
-          <button
-            className="btn"
+          <Button
+            title="bubble sort"
+            click={() => sorting("bubble")}
             disabled={btnState}
-            onClick={() => sorting("bubble")}
-          >
-            bubble sort
-          </button>
-          <button
-            className="btn"
+          />
+          <Button
+            title="merge sort"
+            click={() => sorting("merge")}
             disabled={btnState}
-            onClick={() => sorting("merge")}
-          >
-            merge sort
-          </button>
-          <button
-            className="btn"
+          />
+          <Button
+            title="heap sort"
+            click={() => sorting("heap")}
             disabled={btnState}
-            onClick={() => sorting("insertion")}
-          >
-            insertion sort
-          </button>
-          <button
-            className="btn"
+          />
+          <Button
+            title="quick sort"
+            click={() => sorting("quick")}
             disabled={btnState}
-            onClick={() => sorting("selection")}
-          >
-            selection sort
-          </button>
-          <button
-            className="btn"
+          />
+          <Button
+            title="selection sort"
+            click={() => sorting("selection")}
             disabled={btnState}
-            onClick={() => sorting("quick")}
-          >
-            quick sort
-          </button>
-          <button
-            className="btn"
+          />
+          <Button
+            title="insertion sort"
+            click={() => sorting("insertion")}
             disabled={btnState}
-            onClick={() => sorting("heap")}
-          >
-            heap sort
-          </button>
+          />
         </div>
         <div className="color-wrapper center">
           <input type="color" disabled value={active} />
