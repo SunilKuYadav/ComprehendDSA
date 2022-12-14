@@ -60,7 +60,7 @@ const LinkedListPage = () => {
           change={handleLLTypeChange}
           disabled={btnState}
         />
-        <p>size & speed</p>
+        <p style={{ fontSize: "20px" }}>size & speed</p>
         <input
           disabled={btnState}
           type="range"
