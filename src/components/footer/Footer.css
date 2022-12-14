@@ -1,30 +1,3 @@
-@keyframes toBottomFromTop {
-    49% {
-        transform: translateY(100%);
-    }
-
-    50% {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-
-    51% {
-        opacity: 1;
-    }
-}
-
-.flex {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow-x: hidden;
-}
-
-.flex.row {
-    flex-direction: row;
-}
-
 footer {
     background: #1b242f;
     padding: 70px 0 50px 0;
