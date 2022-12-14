@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useWindowSize } from "../../hooks";
+import { useEffect, useState } from "react";
 
-interface BarProps {
-  size: number;
-  color: string;
-  number: number;
-  maxHeightCount: number;
-}
+import { useWindowSize } from "../../hooks";
+import { BarProps } from "../../_types";
 
 const ArrayNode = (props: BarProps) => {
   const { number, size, color, maxHeightCount } = props;
-  const [hover, setHover] = useState<boolean>(false);
 
+  const [hover, setHover] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const screenSize = useWindowSize();
 
+  // check for mobile view
   useEffect(() => {
     if (screenSize.width < 600) {
       setIsMobile(() => true);
@@ -24,9 +20,7 @@ const ArrayNode = (props: BarProps) => {
     }
   }, [screenSize.width]);
 
-  // size * step = 600
-  // 600 / size = step
-
+  // handle mouse hover
   const onHover = () => setHover((prev) => !prev);
 
   return (
