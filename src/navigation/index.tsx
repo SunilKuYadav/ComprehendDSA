@@ -1,7 +1,14 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { Header } from "../components";
-import { ArraysPage, Dashboard, LinkedListPage, PageNotFound } from "../pages";
+import {
+  ArraysPage,
+  Dashboard,
+  LinkedListPage,
+  MAtrixGridPage,
+  PageNotFound,
+} from "../pages";
 
 // HOC for wrapping header
 const HOC = ({ children }: { children: React.ReactNode }) => (
@@ -21,6 +28,7 @@ const Navigation = () => {
           path="/linkedList"
           element={<HOC children={<LinkedListPage />} />}
         />
+        <Route path="/matrix" element={<HOC children={<MAtrixGridPage />} />} />
         <Route path="*" element={<HOC children={<PageNotFound />} />} />
       </Routes>
     </BrowserRouter>

@@ -19,8 +19,8 @@ const CARD_DATA = [
   },
   {
     name: "Matrix/Grid",
-    operation: [],
-    link: "",
+    operation: ["create"],
+    link: "/matrix",
   },
   {
     name: "Stack",
