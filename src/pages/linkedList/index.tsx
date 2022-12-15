@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./LinkedList.css";
-import { OptionSelect } from "../../components";
-import LLSNode from "../../components/linkedList/LLSNode";
+import { LLNode, OptionSelect } from "../../components";
 import { useWindowSize } from "../../hooks";
 import { LLProps } from "../../_types";
 import { getLL, LLTypes } from "../../utils";
@@ -78,7 +77,7 @@ const LinkedListPage = () => {
       </div>
       <div className="center wrap ll-body">
         {dataSet.map((item) => (
-          <LLSNode {...item} />
+          <LLNode {...item} />
         ))}
       </div>
       <div className="center wrap ll-footer">sdf</div>
