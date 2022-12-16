@@ -5,5 +5,6 @@ export { default as Header } from "./header";
 export * from "./linkedList";
 export * from "./matrix";
 export * from "./modal";
+export * from "./pattern";
 export { default as Button } from "./Button";
 export { default as OptionSelect } from "./Option";
