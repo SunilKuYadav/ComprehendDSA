@@ -1,13 +1,7 @@
 import { inactive } from "../utils";
 
-const getArrays = (row: number, column: number) => {
-  let tempDataSet: any[] = [];
-
-  tempDataSet = twoDimessionalArray(row, column);
-  console.log(tempDataSet);
-
-  return tempDataSet;
-};
+const getArrays = (row: number, column: number) =>
+  twoDimessionalArray(row, column);
 
 const twoDimessionalArray = (row: number, col: number) => {
   let matrix = new Array(row).fill([]);

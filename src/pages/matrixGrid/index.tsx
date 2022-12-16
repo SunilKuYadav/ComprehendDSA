@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { GetMatrix, OptionSelect } from "../../components";
+import { GetMatrix } from "../../components";
 import { useWindowSize } from "../../hooks";
 import { getArrays } from "../../utils";
 
