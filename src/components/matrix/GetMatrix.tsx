@@ -11,7 +11,7 @@ const GetMatrix = (props: MatrixProps) => {
   if (data.length < 1) return <p>Increase row or column</p>;
   return (
     <div
-      className={` ${Animation[parseInt(JSON.stringify(Math.random() * 10))]}`}
+      className={` `}
       style={{
         maxHeight: "600px",
         overflow: "hidden",
@@ -26,7 +26,7 @@ const GetMatrix = (props: MatrixProps) => {
                 <div
                   key={`${r}${c}`}
                   className={` center
-                   ${Animation[parseInt(JSON.stringify(Math.random() * 10))]} `}
+                    `}
                   style={{
                     border: ".5px solid rgb(185, 172, 172)",
                     fontSize: "12px",
