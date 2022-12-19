@@ -29,8 +29,8 @@ const CARD_DATA = [
   },
   {
     name: "Stack",
-    operation: [],
-    link: "",
+    operation: ["pop", "push"],
+    link: "/stack",
   },
   {
     name: "Queue",
