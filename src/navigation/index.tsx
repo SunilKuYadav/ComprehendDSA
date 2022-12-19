@@ -9,6 +9,7 @@ import {
   MAtrixGridPage,
   PageNotFound,
   PatternPage,
+  StackPage,
 } from "../pages";
 
 // HOC for wrapping header
@@ -31,6 +32,7 @@ const Navigation = () => {
         />
         <Route path="/matrix" element={<HOC children={<MAtrixGridPage />} />} />
         <Route path="/pattern" element={<HOC children={<PatternPage />} />} />
+        <Route path="/stack" element={<HOC children={<StackPage />} />} />
         <Route path="*" element={<HOC children={<PageNotFound />} />} />
       </Routes>
     </BrowserRouter>
