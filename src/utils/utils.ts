@@ -19,7 +19,7 @@ const CARD_DATA = [
   },
   {
     name: "Matrix/Grid",
-    operation: ["create"],
+    operation: ["create", "sort"],
     link: "/matrix",
   },
   {
@@ -29,8 +29,8 @@ const CARD_DATA = [
   },
   {
     name: "Stack",
-    operation: [],
-    link: "",
+    operation: ["pop", "push"],
+    link: "/stack",
   },
   {
     name: "Queue",
@@ -39,6 +39,11 @@ const CARD_DATA = [
   },
   {
     name: "Graph",
+    operation: [],
+    link: "",
+  },
+  {
+    name: "Binary Tree",
     operation: [],
     link: "",
   },
