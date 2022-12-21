@@ -1,4 +1,5 @@
 export { default as ArraysPage } from "./arrays";
+export { default as BinaryTreePage } from "./binaryTree";
 export { default as Dashboard } from "./dashboard";
 export { default as LinkedListPage } from "./linkedList";
 export { default as MAtrixGridPage } from "./matrixGrid";

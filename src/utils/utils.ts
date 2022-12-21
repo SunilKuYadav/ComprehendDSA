@@ -38,82 +38,12 @@ const CARD_DATA = [
     link: "",
   },
   {
-    name: "Graph",
-    operation: [],
-    link: "",
-  },
-  {
     name: "Binary Tree",
-    operation: [],
-    link: "",
+    operation: ["CRUD Operation"],
+    link: "/binaryTree",
   },
   {
-    name: "Other Tree",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Recursion",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Searching Algorithm",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Sorting Algorithm",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Divide and Conquer Algorithm",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Greedy Mehtodology",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Backtracking Algorithm",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Dynamic Programming",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Pattern Searching",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Mathematical Algorithms",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Geometric Algorithms",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Bitwise Algorithms",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Randomized Algorithms",
-    operation: [],
-    link: "",
-  },
-  {
-    name: "Branch and Bound Algorithm",
+    name: "Path Finding Algorithm",
     operation: [],
     link: "",
   },

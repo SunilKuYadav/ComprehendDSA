@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { GetMatrix } from "../../components";
+import { Button, GetMatrix, OptionSelect } from "../../components";
 import { useWindowSize } from "../../hooks";
-import { bubbleSort, getArrays, mergeSort, wait } from "../../utils";
+import { getArrays, mergeSort, quickSort, wait } from "../../utils";
+
+interface MatrixGridDataProps {
+  number: number;
+  color: string;
+}
 
 const MatrixGrid = () => {
   const [rowsCount, setRowsCount] = useState<number>(5);
@@ -10,7 +15,8 @@ const MatrixGrid = () => {
   const [columnCount, setColumnCount] = useState<number>(5);
   const [columnMaxCount, setColumnMaxCount] = useState<number>(7);
   const [btnState, setBtnState] = useState<boolean>(false);
-  const [dataSet, setDataSet] = useState<any[][]>([]);
+  const [dataSet, setDataSet] = useState<MatrixGridDataProps[][]>([]);
+  const [sortingType, setSortingType] = useState<string>("Merge Sort");
 
   const size = useWindowSize();
 
@@ -21,14 +27,14 @@ const MatrixGrid = () => {
   const handleColumnCountChange = (e: any) =>
     setColumnCount(() => parseInt(e.target.value));
 
-  const updateUI = (data: any[], row: number) => {
+  const updateRowUI = (data: MatrixGridDataProps[], row: number) => {
     let res = data;
     let temp = dataSet;
     temp[row] = res;
     setDataSet(() => [...temp]);
   };
 
-  const updateUI2 = (data: any[], row: number) => {
+  const updateColumnUI = (data: MatrixGridDataProps[], row: number) => {
     let tempArray = dataSet;
     for (let j = 0; j < rowsCount; j++) {
       tempArray[j][row] = data[j];
@@ -37,28 +43,55 @@ const MatrixGrid = () => {
   };
 
   const handleSort2dArrayByRow = async () => {
+    setBtnState(true);
     for (let i = 0; i < rowsCount; i++) {
-      await mergeSort(dataSet[i], 0, dataSet[i].length - 1, 1, (data: any[]) =>
-        updateUI(data, i)
-      );
+      if (sortingType === "Merge Sort") {
+        await mergeSort(
+          dataSet[i],
+          0,
+          dataSet[i].length - 1,
+          1,
+          (data: any[]) => updateRowUI(data, i)
+        );
+      } else {
+        await quickSort(
+          dataSet[i],
+          0,
+          dataSet[i].length - 1,
+          1,
+          (data: any[]) => updateRowUI(data, i)
+        );
+      }
     }
+    setBtnState(false);
   };
+
   const handleSort2dArrayByColumn = async () => {
+    setBtnState(true);
     for (let i = 0; i < columnCount; i++) {
       let tempArray = [];
       for (let j = 0; j < rowsCount; j++) {
         tempArray.push(dataSet[j][i]);
         console.log(j, i);
       }
-      await mergeSort(tempArray, 0, tempArray.length - 1, 1, (data: any[]) =>
-        updateUI2(data, i)
-      );
+      if (sortingType === "Merge Sort") {
+        await mergeSort(tempArray, 0, tempArray.length - 1, 1, (data: any[]) =>
+          updateColumnUI(data, i)
+        );
+      } else {
+        await quickSort(tempArray, 0, tempArray.length - 1, 1, (data: any[]) =>
+          updateColumnUI(data, i)
+        );
+      }
     }
+    setBtnState(false);
   };
 
-  const handleSortArray = async () => {
-    await handleSort2dArrayByColumn();
-    await handleSort2dArrayByRow();
+  // handle sorting change
+  const handleSortingChange = (e: any) => {
+    e.target.value === "Merge Sort"
+      ? setSortingType(() => "Merge Sort")
+      : setSortingType(() => "Quick Sort");
   };
 
   // update data set on col or row change
@@ -105,12 +138,21 @@ const MatrixGrid = () => {
         <GetMatrix data={dataSet} total={columnCount * rowsCount} />
       </div>
       <div>
-        <button className="btn" onClick={handleSort2dArrayByRow}>
-          Sort by row
-        </button>
-        <button className="btn" onClick={handleSort2dArrayByColumn}>
-          Sort by column
-        </button>
+        <OptionSelect
+          options={["Merge Sort", "Quick Sort"]}
+          change={handleSortingChange}
+          disabled={btnState}
+        />
+        <Button
+          title="Sort by row"
+          click={handleSort2dArrayByRow}
+          disabled={btnState}
+        />
+        <Button
+          title="Sort by column"
+          click={handleSort2dArrayByColumn}
+          disabled={btnState}
+        />
         {/* <button className="btn" onClick={handleSort2dArrayByRow}>
           full Sort by row
         </button>

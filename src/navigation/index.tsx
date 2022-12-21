@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "../components";
 import {
   ArraysPage,
+  BinaryTreePage,
   Dashboard,
   LinkedListPage,
   MAtrixGridPage,
@@ -33,6 +34,10 @@ const Navigation = () => {
         <Route path="/matrix" element={<HOC children={<MAtrixGridPage />} />} />
         <Route path="/pattern" element={<HOC children={<PatternPage />} />} />
         <Route path="/stack" element={<HOC children={<StackPage />} />} />
+        <Route
+          path="/binaryTree"
+          element={<HOC children={<BinaryTreePage />} />}
+        />
         <Route path="*" element={<HOC children={<PageNotFound />} />} />
       </Routes>
     </BrowserRouter>
