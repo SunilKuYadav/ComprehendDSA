@@ -79,6 +79,7 @@ const Stack = () => {
                   {_}
                   {index === dataSet.length - 1 ? (
                     <div
+                      key={"pointer"}
                       style={{
                         position: "absolute",
                         right: 50,

@@ -6,7 +6,13 @@ import "./Dashboard.css";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div
+      style={{
+        minHeight: "600px",
+        display: "flex",
+        justifyContent: "space-around",
+      }}
+    >
       <div className="around wrap">
         {CARD_DATA.map((item) => (
           <div
@@ -28,7 +34,7 @@ const Dashboard = () => {
                   ))}
                 </ul>
               ) : (
-                <p style={{ fontSize: "10px" }}>Coming soon...</p>
+                <p style={{ fontSize: "20px" }}>Coming soon...</p>
               )}
             </div>
             {item.operation.length ? (

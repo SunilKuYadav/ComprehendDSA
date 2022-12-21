@@ -23,26 +23,34 @@
 
 .card-wrapper .card-header {
     animation: popIn 2s both;
+    margin-top: 20px;
 }
 
 .card-wrapper .card-body {
     animation: flipInX 0.75s ease both;
+    display: none;
 }
 
 .card-wrapper .card-footer {
-    animation: slideUp 0.75s ease both;
+    animation: slideInRight .3s .3s ease both;
+    margin-bottom: 20px;
 }
 
 .card-wrapper:hover .card-header {
-    animation: slideDown .2s .2s ease both;
+    display: none;
 }
 
 .card-wrapper:hover .card-body {
-    animation: slideInLeft .3s .3s ease both;
+    animation: slideDown .5s .2s ease both;
+    display: block;
+    padding-top: 20px;
+    font-size: 20px;
+    text-transform: capitalize;
 }
 
 .card-wrapper:hover .card-footer {
-    animation: slideInRight .3s .3s ease both;
+    animation: slideUp 0.75s ease both;
+
 }
 
 .card-body li {
