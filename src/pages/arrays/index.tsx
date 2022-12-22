@@ -116,10 +116,10 @@ const Arrays = () => {
     setBtnState(false);
   };
 
-  const toggleModal = (operation?: string) =>
-    operation
-      ? setArrOperation(() => operation)
-      : setModalStatus((prev) => !prev);
+  const toggleModal = (operation?: string) => {
+    operation && setArrOperation(() => operation);
+    setModalStatus((prev) => !prev);
+  };
 
   const handleDataUpdate = async (
     element: ArrayBarProps,
